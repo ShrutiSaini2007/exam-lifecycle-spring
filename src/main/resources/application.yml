@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:exam_lifecycle}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:admin}
+  jpa:
+    hibernate:
+      ddl-auto: update   # fine for a capstone prototype; use Flyway/Liquibase migrations for real production use
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+app:
+  jwt:
+    # In production, inject this via secrets management, never a checked-in default.
+    secret: ${JWT_SECRET:change-this-development-only-secret-key-please-32bytes-min}
+    expiry-hours: 8
+  bootstrap-admin-password: ${ADMIN_BOOTSTRAP_PASSWORD:}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

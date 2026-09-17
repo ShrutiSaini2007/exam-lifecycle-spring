@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: exam_lifecycle
+      POSTGRES_USER: exam_lifecycle
+      POSTGRES_PASSWORD: exam_lifecycle
+    ports:
+      - "5432:5432"
+    volumes:
+      - exam_lifecycle_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U exam_lifecycle"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: exam_lifecycle
+      DB_USER: exam_lifecycle
+      DB_PASSWORD: exam_lifecycle
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-real-deployments-32-bytes-minimum}
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-}
+    ports:
+      - "8080:8080"
+
+volumes:
+  exam_lifecycle_pgdata:
