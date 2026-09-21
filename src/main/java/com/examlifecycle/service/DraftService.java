@@ -408,7 +408,8 @@ public class DraftService {
             String preparedBy = exportData.preparedBy() != null ? exportData.preparedBy() : "—";
             String moderatedBy = exportData.moderatedBy() != null ? exportData.moderatedBy() : "—";
             String approvedBy = exportData.approvedBy() != null ? exportData.approvedBy() : "—";
-            String downloadTime = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(java.time.LocalDateTime.now());
+   String downloadTime = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        .format(java.time.ZonedDateTime.now(java.time.ZoneId.of("Asia/Kolkata")));
 
             PdfContentByte canvas = writer.getDirectContentUnder();
             canvas.saveState();
