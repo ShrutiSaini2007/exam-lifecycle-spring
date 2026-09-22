@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Mirrors the Python prototype's ensure_bootstrap_admin(): if there are no
@@ -32,6 +33,7 @@ public class BootstrapAdminRunner implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) {
         if (userRepository.count() > 0) {
             return;
