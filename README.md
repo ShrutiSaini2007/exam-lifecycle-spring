@@ -8,13 +8,7 @@ capstone's required "baseline vs. advanced implementation" evidence.
 
 ## ⚠️ Important: this has not been compiled or run
 
-I built this in a sandbox with **no internet access and no Maven installed**,
-so unlike the Python prototype (which I actually ran, with 22 passing
-end-to-end tests), I could not compile this code or execute its test suite.
-I reviewed it carefully by hand and I'm confident in the structure, but
-**you must run `mvn compile` yourself before trusting this** — treat the
-first build on your machine as the real verification step, not a formality.
-If something doesn't compile, paste me the exact error and I'll fix it.
+
 
 ## What's implemented
 
@@ -89,26 +83,12 @@ lock → export flow runs, the sequential gate is proven to block early
 officer approval, immutability is proven post-lock, and the audit trail is
 checked for both content and access.
 
-## API shape
 
-Once running, the full interactive spec is at `/swagger-ui.html`. Routes
-mirror the Python prototype 1:1 (see that project's README for the full
-list) — the main naming difference is that JSON fields here are
-**camelCase** (`questionIds`, `contentHash`) rather than the Python
-version's **snake_case** (`question_ids`, `content_hash`), since that's the
-Java/Jackson convention. If you're porting a frontend from the Python
-version, that's the one thing to find-and-replace.
 
 ## What's still needed for a complete capstone submission
 
 This delivers the backend, persistence, security, containerization, and CI
 — but not yet:
-
-- **A React frontend.** The Python prototype's vanilla-JS UI is a reference
-  for the interaction design (seal-chain stepper, role-gated actions, live
-  paper review tab, attribution-block export) — porting those screens to
-  React components that call this API is the next piece. Ask if you want
-  this built next.
 - **Flyway/Liquibase migrations.** `ddl-auto: update` (Hibernate
   auto-schema) is fine for a capstone prototype but call this out as a
   known simplification in your report — a real production system would use
